@@ -69,6 +69,7 @@
             padding: 0.5rem 1.5rem;
             transition: all 0.3s ease;
             border-radius: 5px;
+            cursor: pointer; /* Added for clarity */
         }
 
         .nav-link:hover {
@@ -152,6 +153,8 @@
             align-items: center;
             justify-content: center;
             box-shadow: 0 8px 16px rgba(102, 126, 234, 0.3);
+            /* Optional: Add a subtle border or ring to suggest a contained image */
+            border: 5px solid white; 
         }
 
         .initials {
@@ -660,7 +663,7 @@
         // Home Page Component
         function HomePage() {
             const techStack = [
-                'Python', 'Java', 'JavaScript', 'HTML5', 'CSS3',' Google collab', 'PHP', 'MySQL', 'Oracle SQL',
+                'Python', 'Java', 'JavaScript', 'HTML5', 'CSS3', 'Google Colab', 'PHP', 'MySQL', 'Oracle SQL',
                 'VS Code', 'Jupyter Notebook'
             ];
 
@@ -780,7 +783,7 @@
                 {
                     id: 1,
                     title: 'Anti-Data Bullying System (ADBS)',
-                    description: 'A social media platform developed using JavaScript, PHP, MySQL, HTML5, and CSS3. Implements K-Means algorithm to automatically detect and filter offensive language in real-time. Features two databases—one for user data and another for bad words management, with admin-only access for updating the moderation list. Creates a safer online community through intelligent content filtering.'
+                    description: 'A social media platform developed using JavaScript, PHP, MySQL, HTML5, and CSS3. Implements **K-Means algorithm** to automatically detect and filter offensive language in real-time. Features two databases—one for user data and another for bad words management, with admin-only access for updating the moderation list. Creates a safer online community through intelligent content filtering.'
                 },
                 {
                     id: 2,
@@ -825,7 +828,31 @@
 
         // Achievements Page Component
         function AchievementsPage() {
+            const publications = [
+                {
+                    title: 'StyleMate: A Conversational AI and AR-Based Personalized Shopping Experience',
+                    description: 'Research integrating AI, NLP, Deep Learning, Emotion Recognition, and Augmented Reality to design a next-generation fashion e-commerce platform with AI stylist chatbot, AR try-on, emotion-aware recommendations, and sustainability-focused filters.',
+                    venue: 'International Journal of Creative Research Thoughts (IJCRT)',
+                    details: 'Volume 13, Issue 11, November 2025',
+                    icon: '📄'
+                },
+                {
+                    title: 'The Next Generation of Learning: AI Mentorship for a Transformative Educational Experience',
+                    description: 'Research on AI-driven mentorship systems for transforming educational experiences',
+                    venue: 'International Journal of Advanced Research in Computer and Communication Engineering (IJARCCE)',
+                    details: '',
+                    icon: '📄'
+                }
+            ];
+
+            // Added LLM certification as the first item for prominence
             const certifications = [
+                {
+                    title: 'NPTEL Online Certification – Introduction to Large Language Models (LLMs)',
+                    organization: 'IIT Madras (Funded by MoE, Govt. of India)',
+                    duration: '12 week course (Jul-Oct 2025) | Score: 58%',
+                    year: '2025'
+                },
                 {
                     title: 'NPTEL Online Certification – Data Science for Engineers',
                     organization: 'IIT Madras',
@@ -884,12 +911,6 @@
 
             const awards = [
                 {
-                    title: 'Published Research Paper',
-                    description: '"The Next Generation of Learning: AI Mentorship for a Transformative Educational Experience"',
-                    venue: 'IJARCCE (International Journal of Advanced Research in Computer and Communication Engineering)',
-                    icon: '📄'
-                },
-                {
                     title: 'Runner Up - Technical Project Competition',
                     description: 'Achieved second place in technical project competition',
                     venue: 'Kalpak 2k23',
@@ -925,7 +946,26 @@
 
                         <div className="section">
                             <h2 className="section-title">
-                                <span className="title-icon">🏆</span>
+                                <span className="title-icon">📚</span>
+                                Research Publications
+                            </h2>
+                            <div className="awards-grid">
+                                {publications.map((pub, index) => (
+                                    <div key={index} className="award-card">
+                                        <div className="award-icon">{pub.icon}</div>
+                                        <h3>{pub.title}</h3>
+                                        <p className="award-description">{pub.description}</p>
+                                        <p className="award-venue">
+                                            {pub.venue} {pub.details && `(${pub.details})`}
+                                        </p>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        <div className="section">
+                            <h2 className="section-title">
+                                <span className="title-icon">🏅</span>
                                 Awards & Recognition
                             </h2>
                             <div className="awards-grid">
@@ -951,7 +991,7 @@
                                         <div className="cert-year">{cert.year}</div>
                                         <div className="cert-content">
                                             <h3>{cert.title}</h3>
-                                            <p className="cert-org">{cert.organization}</p>
+                                            <p className="cert-org">Issued by: {cert.organization}</p>
                                             {cert.duration && <p className="cert-duration">{cert.duration}</p>}
                                         </div>
                                     </div>
@@ -961,17 +1001,13 @@
 
                         <div className="section">
                             <h2 className="section-title">
-                                <span className="title-icon">💡</span>
-                                Leadership & Soft Skills
+                                <span className="title-icon">🤝</span>
+                                Soft Skills & Leadership
                             </h2>
-                            <p className="leadership-note">
-                                Technical Team Coordinator of CSE (AI & DS) Student Association at SSWCOE
-                            </p>
+                            
                             <div className="skills-grid">
                                 {softSkills.map((skill, index) => (
-                                    <div key={index} className="skill-badge">
-                                        {skill}
-                                    </div>
+                                    <div key={index} className="skill-badge">{skill}</div>
                                 ))}
                             </div>
                         </div>
@@ -985,7 +1021,7 @@
             const [currentPage, setCurrentPage] = useState('home');
 
             const renderPage = () => {
-                switch(currentPage) {
+                switch (currentPage) {
                     case 'home':
                         return <HomePage />;
                     case 'projects':
@@ -998,17 +1034,15 @@
             };
 
             return (
-                <div>
+                <React.Fragment>
                     <Navbar currentPage={currentPage} setCurrentPage={setCurrentPage} />
                     {renderPage()}
-                </div>
+                </React.Fragment>
             );
         }
 
-        // Render the app
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<App />);
+        // Render the App
+        ReactDOM.createRoot(document.getElementById('root')).render(<App />);
     </script>
 </body>
 </html>
-
