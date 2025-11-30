@@ -3,1046 +3,383 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Natasha Bogam | Portfolio</title>
-    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <title>Natasha Bogam - AI & Data Science Portfolio</title>
+    <!-- Load Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Lucide Icons for aesthetic vectors -->
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        /* Custom Styles for Dark Theme and Aesthetics */
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(to bottom, #f8f9fa 0%, #e9ecef 100%);
-            color: #333;
+            font-family: 'Inter', sans-serif;
+            background-color: #0d1117; /* GitHub-like dark background */
+            color: #c9d1d9; /* Light text */
             min-height: 100vh;
         }
 
-        /* Navbar Styles */
-        .navbar {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            height: 70px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 999;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        /* Accent Color Variable - A professional tech blue */
+        :root {
+            --accent-color: #3b82f6; /* Blue 500 */
+            --bg-card: #161b22;
         }
 
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            max-width: 1200px;
-            padding: 0 50px;
+        /* Profile Picture Styling */
+        .profile-picture {
+            border: 4px solid var(--accent-color);
+            transition: all 0.5s ease;
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
         }
 
-        .nav-logo {
-            color: #fff;
-            text-decoration: none;
-            font-size: 2rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
+        /* Interactive Tab Styling */
+        .tab-button {
+            transition: all 0.3s;
+            border-bottom: 3px solid transparent;
+            color: #8b949e; /* Gray text */
+            padding-bottom: 0.75rem;
         }
-
-        .nav-logo:hover {
-            transform: scale(1.1);
-        }
-
-        .nav-menu {
-            display: flex;
-            list-style: none;
-            margin: 0;
-        }
-
-        .nav-link {
-            color: #fff;
-            text-decoration: none;
-            padding: 0.5rem 1.5rem;
-            transition: all 0.3s ease;
-            border-radius: 5px;
-            cursor: pointer; /* Added for clarity */
-        }
-
-        .nav-link:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-        }
-
-        .nav-link.active {
-            background-color: rgba(255, 255, 255, 0.2);
+        .tab-button.active {
+            color: var(--accent-color);
+            border-bottom: 3px solid var(--accent-color);
             font-weight: 600;
         }
 
-        .menu-icon {
-            display: none;
-            cursor: pointer;
+        /* Page Transition Animation */
+        .page-content {
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+            min-height: 400px; /* Ensure content area has height when pages switch */
         }
-
-        .hamburger {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
+        .page-content.active {
+            opacity: 1;
+            transform: translateY(0);
         }
-
-        .hamburger span {
-            width: 25px;
-            height: 3px;
-            background-color: #fff;
-            transition: all 0.3s ease;
-            border-radius: 3px;
+        
+        /* Card Hover Effect */
+        .card {
+            background-color: var(--bg-card);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid #30363d;
         }
-
-        /* Content Styles */
-        .content {
-            padding-top: 90px;
-            padding-bottom: 40px;
-            min-height: 100vh;
-        }
-
-        .page-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
-
-        .page-header {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-
-        .page-header h1 {
-            font-size: 3rem;
-            color: #2d3748;
-            margin-bottom: 15px;
-            font-weight: 700;
-        }
-
-        .page-subtitle {
-            font-size: 1.2rem;
-            color: #718096;
-            max-width: 700px;
-            margin: 0 auto;
-            line-height: 1.6;
-        }
-
-        /* Home Page Styles */
-        .hero-section {
-            text-align: center;
-            padding: 40px;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            margin-bottom: 30px;
-        }
-
-        .profile-image {
-            width: 150px;
-            height: 150px;
-            margin: 0 auto 20px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 8px 16px rgba(102, 126, 234, 0.3);
-            /* Optional: Add a subtle border or ring to suggest a contained image */
-            border: 5px solid white; 
-        }
-
-        .initials {
-            color: white;
-            font-size: 3rem;
-            font-weight: bold;
-        }
-
-        .name {
-            font-size: 2.5rem;
-            color: #2d3748;
-            margin-bottom: 10px;
-            font-weight: 700;
-        }
-
-        .tagline {
-            font-size: 1.3rem;
-            color: #667eea;
-            margin-bottom: 5px;
-            font-weight: 500;
-        }
-
-        .specialization {
-            font-size: 1.1rem;
-            color: #718096;
-            font-style: italic;
-        }
-
-        .section {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            margin-bottom: 30px;
-        }
-
-        .section h2 {
-            color: #2d3748;
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            border-bottom: 3px solid #667eea;
-            padding-bottom: 10px;
-        }
-
-        .description {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: #4a5568;
-        }
-
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding: 15px;
-            background: #f7fafc;
-            border-radius: 10px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .contact-item:hover {
+        .card:hover {
             transform: translateY(-3px);
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+            box-shadow: 0 6px 15px rgba(59, 130, 246, 0.15);
         }
 
-        .contact-icon {
-            font-size: 2rem;
-        }
-
-        .contact-label {
-            font-size: 0.9rem;
-            color: #718096;
-            margin-bottom: 5px;
-        }
-
-        .contact-link {
-            color: #667eea;
-            text-decoration: none;
-            font-weight: 500;
-            word-break: break-word;
-            transition: color 0.3s ease;
-        }
-
-        .contact-link:hover {
-            color: #764ba2;
-            text-decoration: underline;
-        }
-
-        .tech-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .tech-badge {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 12px 20px;
-            border-radius: 25px;
-            text-align: center;
-            font-weight: 500;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .tech-badge:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
-        }
-
-        .education-item {
-            padding: 20px;
-            background: #f7fafc;
-            border-radius: 10px;
-            border-left: 4px solid #667eea;
-            margin-bottom: 20px;
-        }
-
-        .education-item h3 {
-            color: #2d3748;
-            font-size: 1.3rem;
-            margin-bottom: 10px;
-        }
-
-        .education-item p {
-            color: #4a5568;
-            font-size: 1.05rem;
-            margin-bottom: 5px;
-        }
-
-        .year {
-            color: #667eea;
-            font-weight: 500;
-        }
-
-        /* Projects Page Styles */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
-        }
-
-        .project-card {
-            background: white;
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .project-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
-
-        .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-        }
-
-        .project-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 15px;
-        }
-
-        .project-title {
-            font-size: 1.5rem;
-            color: #2d3748;
-            flex: 1;
-            line-height: 1.3;
-            margin-bottom: 15px;
-        }
-
-        .project-number {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #667eea;
-            opacity: 0.3;
-            margin-left: 15px;
-        }
-
-        .project-description {
-            font-size: 1.05rem;
-            color: #4a5568;
-            line-height: 1.7;
-        }
-
-        /* Achievements Page Styles */
-        .section-title {
-            font-size: 2rem;
-            color: #2d3748;
-            margin-bottom: 30px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            font-weight: 700;
-        }
-
-        .title-icon {
-            font-size: 2.5rem;
-        }
-
-        .awards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-        }
-
-        .award-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 30px;
-            border-radius: 12px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            text-align: center;
-        }
-
-        .award-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
-        }
-
-        .award-icon {
-            font-size: 3rem;
-            margin-bottom: 15px;
-        }
-
-        .award-card h3 {
-            font-size: 1.4rem;
-            margin-bottom: 10px;
-            font-weight: 600;
-        }
-
-        .award-description {
-            font-size: 1rem;
-            line-height: 1.6;
-            margin-bottom: 10px;
-            opacity: 0.95;
-        }
-
-        .award-venue {
-            font-size: 0.95rem;
-            font-style: italic;
-            opacity: 0.85;
-            margin-top: 10px;
-        }
-
-        .certifications-timeline {
-            position: relative;
-            padding-left: 30px;
-            border-left: 3px solid #667eea;
-        }
-
-        .cert-item {
-            position: relative;
-            padding: 20px 0 20px 30px;
-            margin-bottom: 20px;
-        }
-
-        .cert-item::before {
-            content: '';
-            position: absolute;
-            left: -9px;
-            top: 25px;
-            width: 15px;
-            height: 15px;
-            background: #667eea;
-            border-radius: 50%;
-            border: 3px solid white;
-            box-shadow: 0 0 0 3px #667eea;
-        }
-
-        .cert-year {
-            position: absolute;
-            left: -85px;
-            top: 22px;
-            font-weight: bold;
-            color: #667eea;
-            font-size: 1.1rem;
-        }
-
-        .cert-content h3 {
-            font-size: 1.2rem;
-            color: #2d3748;
-            margin-bottom: 8px;
-            font-weight: 600;
-        }
-
-        .cert-org {
-            color: #667eea;
-            font-weight: 500;
-            margin-bottom: 5px;
-        }
-
-        .cert-duration {
-            color: #718096;
-            font-size: 0.95rem;
-            font-style: italic;
-        }
-
-        .leadership-note {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-            font-size: 1.1rem;
-            font-weight: 500;
-            margin-bottom: 30px;
-            line-height: 1.6;
-        }
-
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
-        }
-
-        .skill-badge {
-            background: #f7fafc;
-            color: #2d3748;
-            padding: 15px 20px;
-            border-radius: 10px;
-            text-align: center;
-            font-weight: 500;
-            font-size: 1.05rem;
-            border: 2px solid #e2e8f0;
-            transition: all 0.3s ease;
-        }
-
-        .skill-badge:hover {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border-color: #667eea;
-            transform: translateY(-3px);
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
-        }
-
-        /* Responsive Styles */
-        @media screen and (max-width: 968px) {
-            .cert-year {
-                position: static;
-                display: block;
-                margin-bottom: 10px;
-                font-size: 1rem;
-            }
-
-            .certifications-timeline {
-                padding-left: 20px;
-            }
-
-            .cert-item {
-                padding-left: 20px;
-            }
-        }
-
-        @media screen and (max-width: 768px) {
-            .nav-container {
-                padding: 0 20px;
-            }
-
-            .menu-icon {
-                display: block;
-            }
-
-            .nav-menu {
-                display: none;
-                flex-direction: column;
-                width: 100%;
-                position: absolute;
-                top: 70px;
-                left: 0;
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                padding: 20px 0;
-            }
-
-            .nav-menu.active {
-                display: flex;
-            }
-
-            .nav-menu li {
-                text-align: center;
-                padding: 10px 0;
-            }
-
-            .page-header h1 {
-                font-size: 2.2rem;
-            }
-
-            .page-subtitle {
-                font-size: 1rem;
-            }
-
-            .name {
-                font-size: 2rem;
-            }
-
-            .tagline {
-                font-size: 1.1rem;
-            }
-
-            .contact-grid,
-            .projects-grid,
-            .awards-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .tech-grid {
-                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-            }
-
-            .section {
-                padding: 20px;
-            }
-
-            .section-title {
-                font-size: 1.6rem;
-                gap: 10px;
-            }
-
-            .title-icon {
-                font-size: 2rem;
+        /* Responsive Layout for Tab Bar */
+        @media (max-width: 640px) {
+            .tab-button {
+                font-size: 0.875rem; /* text-sm */
+                padding-left: 0.5rem;
+                padding-right: 0.5rem;
             }
         }
     </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'accent': '#3b82f6',
+                    }
+                }
+            }
+        }
+    </script>
 </head>
 <body>
-    <div id="root"></div>
 
-    <script type="text/babel">
-        const { useState } = React;
+    <!-- Main Container -->
+    <div class="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
 
-        // Navbar Component
-        function Navbar({ currentPage, setCurrentPage }) {
-            const [isOpen, setIsOpen] = useState(false);
+        <!-- Header/Hero Section -->
+        <header class="text-center pt-10 pb-12 border-b border-[#30363d]">
+            <!-- Profile Picture -->
+            <img src="uploaded:photo.pdf" alt="Natasha Bogam Profile Picture" 
+                 class="profile-picture w-32 h-32 mx-auto rounded-full object-cover mb-4 ring-2 ring-white/10"
+                 onerror="this.onerror=null; this.src='https://placehold.co/128x128/161b22/3b82f6?text=NB';">
+            
+            <h1 class="text-4xl font-extrabold text-white mb-1">
+                Natasha Balraj Bogam
+            </h1>
+            <p class="text-xl font-light text-accent mb-4">
+                AI & Data Science Specialist | Computer Science Student
+            </p>
 
-            const handleNavClick = (page) => {
-                setCurrentPage(page);
-                setIsOpen(false);
-                window.scrollTo(0, 0);
-            };
+            <!-- Contact Links: The LinkedIn link is confirmed and updated here -->
+            <div class="flex justify-center space-x-6 text-sm text-gray-400">
+                <a href="mailto:bogamnatasha@gmail.com" class="hover:text-accent transition duration-200 flex items-center">
+                    <i data-lucide="mail" class="w-4 h-4 mr-1"></i> bogamnatasha@gmail.com
+                </a>
+                <a href="https://www.linkedin.com/in/natasha-bogam" target="_blank" class="hover:text-accent transition duration-200 flex items-center hidden sm:flex">
+                    <i data-lucide="linkedin" class="w-4 h-4 mr-1"></i> LinkedIn
+                </a>
+                <a href="https://github.com/nataanu" target="_blank" class="hover:text-accent transition duration-200 flex items-center hidden sm:flex">
+                    <i data-lucide="github" class="w-4 h-4 mr-1"></i> GitHub
+                </a>
+            </div>
+        </header>
 
-            return (
-                <nav className="navbar">
-                    <div className="nav-container">
-                        <a className="nav-logo" onClick={() => handleNavClick('home')}>
-                            NB
-                        </a>
-                        
-                        <div className="menu-icon" onClick={() => setIsOpen(!isOpen)}>
-                            <div className="hamburger">
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                            </div>
+        <!-- Interactive Tab Navigation -->
+        <nav class="sticky top-0 z-40 bg-[#0d1117] pt-4 pb-0">
+            <div class="flex justify-center space-x-2 sm:space-x-12 border-b border-[#30363d] pb-0">
+                <button data-page="overview" class="tab-button active flex items-center">
+                    <i data-lucide="user" class="w-5 h-5 mr-2 hidden sm:inline"></i> Overview & Education
+                </button>
+                <button data-page="projects" class="tab-button flex items-center">
+                    <i data-lucide="code" class="w-5 h-5 mr-2 hidden sm:inline"></i> Projects
+                </button>
+                <button data-page="skills" class="tab-button flex items-center">
+                    <i data-lucide="zap" class="w-5 h-5 mr-2 hidden sm:inline"></i> Skills & Achievements
+                </button>
+            </div>
+        </nav>
+
+        <!-- Content Area - The Interactive Pages -->
+        <main id="content-area" class="py-10">
+
+            <!-- PAGE 1: Overview & Education -->
+            <div id="overview" class="page-content" data-page="overview">
+                <h2 class="text-3xl font-bold text-white mb-6 border-b border-[#30363d] pb-2 flex items-center">
+                    <i data-lucide="file-text" class="w-6 h-6 mr-3 text-accent"></i> Professional Summary
+                </h2>
+                <div class="card p-6 rounded-xl shadow-lg mb-12">
+                    <p class="text-lg leading-relaxed text-gray-300">
+                        Computer Science and Engineering student specializing in AI and Data Science with foundational knowledge in Python,
+                        Java, and machine learning concepts. Eager to contribute to AI research projects while developing practical research skills
+                        in a supportive environment.
+                    </p>
+                </div>
+
+                <h2 class="text-3xl font-bold text-white mb-6 border-b border-[#30363d] pb-2 flex items-center">
+                    <i data-lucide="graduation-cap" class="w-6 h-6 mr-3 text-accent"></i> Education
+                </h2>
+                <div class="space-y-6 mb-12">
+                    <!-- B. Tech -->
+                    <div class="card p-5 rounded-xl border-l-4 border-accent">
+                        <p class="text-xl font-semibold text-white">B. Tech (Computer Science & Eng.)</p>
+                        <p class="text-accent">Shree Siddheshwar Women's College of Engineering, Solapur</p>
+                        <p class="text-sm text-gray-400">Currently Enrolled (2023 - 2026)</p>
+                    </div>
+                    <!-- Diploma -->
+                    <div class="card p-5 rounded-xl border-l-4 border-accent">
+                        <p class="text-xl font-semibold text-white">Diploma (Computer Engineering)</p>
+                        <p class="text-accent">Shri Siddheswar Women's Polytechnic College, Solapur</p>
+                        <p class="text-sm text-gray-400">Graduated 2023 | Score: 80.63%</p>
+                    </div>
+                     <!-- Primary Education -->
+                    <div class="card p-5 rounded-xl border-l-4 border-accent">
+                        <p class="text-xl font-semibold text-white">Primary Education - 10th Board</p>
+                        <p class="text-accent">Shri Siddheswar English Medium High School, Solapur</p>
+                        <p class="text-sm text-gray-400">Graduated 2020 | Score: 80.80%</p>
+                    </div>
+                </div>
+
+                <h2 class="text-3xl font-bold text-white mb-6 border-b border-[#30363d] pb-2 flex items-center">
+                    <i data-lucide="monitor" class="w-6 h-6 mr-3 text-yellow-500"></i> Internship & Training
+                </h2>
+                <div class="card p-5 rounded-xl border-l-4 border-yellow-500">
+                    <p class="text-xl font-semibold text-white">Full Stack Web Development Training</p>
+                    <p class="text-yellow-400">Katare Informatics</p>
+                    <p class="text-sm text-gray-400">2023 | Focused on practical implementation of web technologies.</p>
+                </div>
+            </div>
+
+            <!-- PAGE 2: Projects -->
+            <div id="projects" class="page-content hidden" data-page="projects">
+                <h2 class="text-3xl font-bold text-white mb-8 border-b border-[#30363d] pb-2 flex items-center">
+                    <i data-lucide="briefcase" class="w-6 h-6 mr-3 text-accent"></i> Featured Projects
+                </h2>
+                <div class="space-y-8">
+                    
+                    <!-- Anti-Data Bullying System (ADBS) -->
+                    <div class="card p-6 rounded-xl shadow-lg border-l-4 border-accent">
+                        <h3 class="text-2xl font-bold text-accent mb-2">Anti-Data Bullying System (ADBS)</h3>
+                        <p class="text-gray-300 mb-4">A social media platform that detects and auto-hides offensive or bullying comments in real-time using Java, PHP, and web technologies.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 text-xs rounded-full bg-red-900/50 text-red-300">Java</span>
+                            <span class="px-3 py-1 text-xs rounded-full bg-blue-900/50 text-blue-300">PHP</span>
+                            <span class="px-3 py-1 text-xs rounded-full bg-green-900/50 text-green-300">Web Technologies</span>
                         </div>
+                    </div>
 
-                        <ul className={isOpen ? 'nav-menu active' : 'nav-menu'}>
-                            <li>
-                                <a 
-                                    className={currentPage === 'home' ? 'nav-link active' : 'nav-link'}
-                                    onClick={() => handleNavClick('home')}
-                                >
-                                    Home
-                                </a>
-                            </li>
-                            <li>
-                                <a 
-                                    className={currentPage === 'projects' ? 'nav-link active' : 'nav-link'}
-                                    onClick={() => handleNavClick('projects')}
-                                >
-                                    Projects
-                                </a>
-                            </li>
-                            <li>
-                                <a 
-                                    className={currentPage === 'achievements' ? 'nav-link active' : 'nav-link'}
-                                    onClick={() => handleNavClick('achievements')}
-                                >
-                                    Achievements
-                                </a>
-                            </li>
+                    <!-- Student Performance Analysis Portal -->
+                    <div class="card p-6 rounded-xl shadow-lg border-l-4 border-accent">
+                        <h3 class="text-2xl font-bold text-accent mb-2">Student Performance Analysis Portal</h3>
+                        <p class="text-gray-300 mb-4">A web-based portal for tracking attendance, assignments, and performance using secure, user-friendly dashboards and integrated AI insights.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 text-xs rounded-full bg-green-900/50 text-green-300">Web Development</span>
+                            <span class="px-3 py-1 text-xs rounded-full bg-purple-900/50 text-purple-300">AI Integration</span>
+                            <span class="px-3 py-1 text-xs rounded-full bg-yellow-900/50 text-yellow-300">Data Visualization</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Student Academic Dashboard -->
+                    <div class="card p-6 rounded-xl shadow-lg border-l-4 border-accent">
+                        <h3 class="text-2xl font-bold text-accent mb-2">Student Academic Dashboard</h3>
+                        <p class="text-gray-300 mb-4">A Streamlit-based web app for GPA calculation, attendance tracking, and visualizing semester-wise academic progress.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 text-xs rounded-full bg-indigo-900/50 text-indigo-300">Streamlit</span>
+                            <span class="px-3 py-1 text-xs rounded-full bg-yellow-900/50 text-yellow-300">Python</span>
+                            <span class="px-3 py-1 text-xs rounded-full bg-green-900/50 text-green-300">Data Visualization</span>
+                        </div>
+                    </div>
+
+                    <!-- YouTube Video Downloader -->
+                    <div class="card p-6 rounded-xl shadow-lg border-l-4 border-accent">
+                        <h3 class="text-2xl font-bold text-accent mb-2">YouTube Video Downloader (Python)</h3>
+                        <p class="text-gray-300 mb-4">A Python-Tkinter application that downloads YouTube videos in various formats/resolutions and saves them directly without third-party tools.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 text-xs rounded-full bg-yellow-900/50 text-yellow-300">Python</span>
+                            <span class="px-3 py-1 text-xs rounded-full bg-gray-900/50 text-gray-300">Tkinter (GUI)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAGE 3: Skills & Achievements -->
+            <div id="skills" class="page-content hidden" data-page="skills">
+                <h2 class="text-3xl font-bold text-white mb-8 border-b border-[#30363d] pb-2 flex items-center">
+                    <i data-lucide="cpu" class="w-6 h-6 mr-3 text-accent"></i> Core Technologies
+                </h2>
+                
+                <!-- Technical Skills -->
+                <div class="card p-6 rounded-xl shadow-lg mb-8">
+                    <div class="flex flex-wrap gap-3">
+                        <span class="px-4 py-1.5 text-sm rounded-full bg-accent/20 text-accent font-medium">Python</span>
+                        <span class="px-4 py-1.5 text-sm rounded-full bg-accent/20 text-accent font-medium">Java</span>
+                        <span class="px-4 py-1.5 text-sm rounded-full bg-accent/20 text-accent font-medium">JavaScript</span>
+                        <span class="px-4 py-1.5 text-sm rounded-full bg-accent/20 text-accent font-medium">HTML/CSS/PHP</span>
+                        <span class="px-4 py-1.5 text-sm rounded-full bg-accent/20 text-accent font-medium">Oracle SQL / MySQL</span>
+                        <span class="px-4 py-1.5 text-sm rounded-full bg-accent/20 text-accent font-medium">Google Colab / Jupyter</span>
+                        <span class="px-4 py-1.5 text-sm rounded-full bg-accent/20 text-accent font-medium">Power BI</span>
+                    </div>
+                </div>
+
+                <h2 class="text-3xl font-bold text-white mb-8 border-b border-[#30363d] pb-2 flex items-center">
+                    <i data-lucide="award" class="w-6 h-6 mr-3 text-accent"></i> Certifications & Training
+                </h2>
+
+                <div class="grid md:grid-cols-1 gap-6 mb-12">
+                    <!-- Certifications -->
+                    <div class="card p-6 rounded-xl shadow-lg">
+                        <h3 class="text-xl font-bold text-white mb-3 flex items-center"><i data-lucide="clipboard-check" class="w-5 h-5 mr-2 text-accent"></i> Key Certifications</h3>
+                        <ul class="text-sm space-y-3 text-gray-300">
+                            <li class="border-l-2 border-accent pl-3">NPTEL: Introduction to LLMs (IIT Madras, 12 weeks course, 2025)</li>
+                            <li class="border-l-2 border-accent pl-3">NPTEL: Data Science for Engineers (IIT Madras, 8 weeks course, 2025)</li>
+                            <li class="border-l-2 border-accent pl-3">NPTEL: Cloud Computing Course (IIT Madras, 12 weeks course, 2024)</li>
+                            <li class="border-l-2 border-accent pl-3">IBM: AI Fundamentals, Cybersecurity Fundamentals, Career Management Essentials (2025)</li>
+                            <li class="border-l-2 border-accent pl-3">Udemy: AI Chatbots Development (Exploring Generative AI with ChatGPT, 2025)</li>
+                            <li class="border-l-2 border-accent pl-3">Oracle Academy: "Getting Started with Java Using Alice" (2025)</li>
+                            <li class="border-l-2 border-accent pl-3">Kaggle: Python Coder Badge (2025)</li>
                         </ul>
                     </div>
-                </nav>
-            );
-        }
+                </div>
 
-        // Home Page Component
-        function HomePage() {
-            const techStack = [
-                'Python', 'Java', 'JavaScript', 'HTML5', 'CSS3', 'Google Colab', 'PHP', 'MySQL', 'Oracle SQL',
-                'VS Code', 'Jupyter Notebook'
-            ];
+                <h2 class="text-3xl font-bold text-white mb-8 border-b border-[#30363d] pb-2 flex items-center">
+                    <i data-lucide="trophy" class="w-6 h-6 mr-3 text-accent"></i> Research & Achievements
+                </h2>
 
-            return (
-                <div className="content">
-                    <div className="page-container">
-                        <div className="hero-section">
-                            <div className="profile-image">
-                                <div className="initials">NB</div>
-                            </div>
-                            <h1 className="name">Natasha Balraj Bogam</h1>
-                            <p className="tagline">Computer Science & Engineering Student</p>
-                            <p className="specialization">Specializing in AI & Data Science</p>
-                        </div>
-
-                        <div className="section">
-                            <h2>About Me</h2>
-                            <p className="description">
-                                Hardworking Computer Science and Engineering student specializing in Artificial Intelligence 
-                                and Data Science, with strong foundations in machine learning, data analysis, and programming. 
-                                Passionate about applying AI solutions to real-world challenges and contributing to innovative teams.
-                            </p>
-                        </div>
-
-                        <div className="section">
-                            <h2>Contact Information</h2>
-                            <div className="contact-grid">
-                                <div className="contact-item">
-                                    <span className="contact-icon">📧</span>
-                                    <div>
-                                        <p className="contact-label">Email</p>
-                                        <a href="mailto:bogamnatasha@gmail.com" className="contact-link">
-                                            bogamnatasha@gmail.com
-                                        </a>
-                                    </div>
-                                </div>
-                                
-                                <div className="contact-item">
-                                    <span className="contact-icon">📱</span>
-                                    <div>
-                                        <p className="contact-label">Phone</p>
-                                        <a href="tel:+918888622802" className="contact-link">
-                                            +91 8888622802
-                                        </a>
-                                    </div>
-                                </div>
-                                
-                                <div className="contact-item">
-                                    <span className="contact-icon">💼</span>
-                                    <div>
-                                        <p className="contact-label">LinkedIn</p>
-                                        <a 
-                                            href="https://linkedin.com/in/natasha-bogam" 
-                                            target="_blank" 
-                                            rel="noopener noreferrer" 
-                                            className="contact-link"
-                                        >
-                                            linkedin.com/in/natasha-bogam
-                                        </a>
-                                    </div>
-                                </div>
-                                
-                                <div className="contact-item">
-                                    <span className="contact-icon">💻</span>
-                                    <div>
-                                        <p className="contact-label">GitHub</p>
-                                        <a 
-                                            href="https://github.com/nataanu" 
-                                            target="_blank" 
-                                            rel="noopener noreferrer" 
-                                            className="contact-link"
-                                        >
-                                            github.com/nataanu
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="section">
-                            <h2>Tech Stack</h2>
-                            <div className="tech-grid">
-                                {techStack.map((tech, index) => (
-                                    <div key={index} className="tech-badge">
-                                        {tech}
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-
-                        <div className="section">
-                            <h2>Education</h2>
-                            <div className="education-item">
-                                <h3>B. Tech in Computer Science & Engineering (AI & DS)</h3>
-                                <p>Shree Siddheshwar Women's College of Engineering, Solapur</p>
-                                <p className="year">Currently Pursuing (Expected 2026)</p>
-                            </div>
-                            <div className="education-item">
-                                <h3>Diploma in Computer Engineering</h3>
-                                <p>Shri Siddheswar Women's Polytechnic College, Solapur</p>
-                                <p className="year">2023 | Percentage: 80.63%</p>
-                            </div>
-                            <div className="education-item">
-                                <h3>10th Board (SSC)</h3>
-                                <p>Shri Siddheswar English Medium High School, Solapur</p>
-                                <p className="year">2020 | Percentage: 80.80%</p>
-                            </div>
-                        </div>
+                <div class="space-y-4">
+                    <div class="card p-5 rounded-xl border-l-4 border-gray-500">
+                        <p class="font-bold text-white">Research Paper: AI Mentorship (IJARCCE)</p>
+                        <p class="text-gray-300 text-sm">"The Next Generation of Learning: AI Mentorship for a Transformative Educational Experience."</p>
+                    </div>
+                    <div class="card p-5 rounded-xl border-l-4 border-gray-500">
+                        <p class="font-bold text-white">Research Paper: StyleMate (IJCRT)</p>
+                        <p class="text-gray-300 text-sm">"StyleMate: A Conversational Ai and AR-Based Personalized Shopping Experience."</p>
+                    </div>
+                    <div class="card p-5 rounded-xl border-l-4 border-gray-500">
+                        <p class="font-bold text-white">Technical Project Competition</p>
+                        <p class="text-gray-300 text-sm">Runner up in Technical Project competition at Kalpak 2k23.</p>
                     </div>
                 </div>
-            );
+
+            </div>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="mt-16 py-6 border-t border-[#30363d] text-center text-gray-500 text-sm">
+            <p>© 2025 Natasha Balraj Bogam. Interactive Portfolio. All rights reserved.</p>
+        </footer>
+
+    </div>
+
+    <!-- JavaScript for Page Switching and Interactivity -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const pageContents = document.querySelectorAll('.page-content');
+
+        /**
+         * Shows the selected content page and updates the active tab button.
+         * @param {string} targetPageId - The data-page attribute value (e.g., 'overview', 'projects').
+         */
+        function showPage(targetPageId) {
+            // 1. Update active button state
+            tabButtons.forEach(button => {
+                button.classList.remove('active');
+                if (button.getAttribute('data-page') === targetPageId) {
+                    button.classList.add('active');
+                }
+            });
+
+            // 2. Handle page transition animation
+            pageContents.forEach(content => {
+                const isActive = content.id === targetPageId;
+                
+                // Transition Out: Remove 'active' class
+                if (!isActive) {
+                    content.classList.remove('active');
+                    // Use a timeout to ensure the transition completes before hiding
+                    setTimeout(() => {
+                        content.classList.add('hidden');
+                    }, 400); // Match CSS transition duration
+                } else {
+                    // Transition In: Show, then add 'active' class
+                    content.classList.remove('hidden');
+                    // Small delay to trigger the CSS transition (from 0 opacity to 1)
+                    setTimeout(() => {
+                        content.classList.add('active');
+                    }, 10); 
+                }
+            });
+
+            // 3. Update URL hash
+            history.pushState(null, '', `#${targetPageId}`);
         }
 
-        // Projects Page Component
-        function ProjectsPage() {
-            const projects = [
-                {
-                    id: 1,
-                    title: 'Anti-Data Bullying System (ADBS)',
-                    description: 'A social media platform developed using JavaScript, PHP, MySQL, HTML5, and CSS3. Implements **K-Means algorithm** to automatically detect and filter offensive language in real-time. Features two databases—one for user data and another for bad words management, with admin-only access for updating the moderation list. Creates a safer online community through intelligent content filtering.'
-                },
-                {
-                    id: 2,
-                    title: 'YouTube Video Downloader',
-                    description: 'A Python-Tkinter app that downloads YouTube videos in various formats and resolutions. The application saves videos directly to the local system without requiring any third-party tools or external dependencies, making it a standalone solution for video downloading.'
-                },
-                {
-                    id: 3,
-                    title: 'Student Academic Dashboard',
-                    description: 'A Streamlit-based web app for GPA calculation, attendance tracking, and visualizing semester-wise academic progress. Students can input their grades, monitor attendance percentages, and view graphical representations of their academic journey.'
-                }
-            ];
+        // Add click listeners to all tab buttons
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const targetPageId = button.getAttribute('data-page');
+                showPage(targetPageId);
+            });
+        });
 
-            return (
-                <div className="content">
-                    <div className="page-container">
-                        <div className="page-header">
-                            <h1>My Projects</h1>
-                            <p className="page-subtitle">
-                                Explore my collection of innovative projects showcasing skills in AI, web development, and software engineering
-                            </p>
-                        </div>
+        // Initialize: Check URL hash on load or default to 'overview'
+        window.addEventListener('load', () => {
+            const initialHash = window.location.hash.replace('#', '');
+            const defaultPage = 'overview';
+            
+            // Check if the hash matches a valid page ID, otherwise use default
+            const targetPageId = Array.from(pageContents).some(p => p.id === initialHash) ? initialHash : defaultPage;
+            
+            // Initial call to set the correct state and active class
+            showPage(targetPageId);
+        });
 
-                        <div className="projects-grid">
-                            {projects.map((project) => (
-                                <div key={project.id} className="project-card">
-                                    <div className="project-header">
-                                        <h3 className="project-title">{project.title}</h3>
-                                        <div className="project-number">0{project.id}</div>
-                                    </div>
-                                    
-                                    <p className="project-description">
-                                        {project.description}
-                                    </p>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </div>
-            );
-        }
+        // Handle browser back/forward buttons
+        window.addEventListener('hashchange', () => {
+            const targetPageId = window.location.hash.replace('#', '');
+            if (targetPageId) {
+                showPage(targetPageId);
+            }
+        });
 
-        // Achievements Page Component
-        function AchievementsPage() {
-            const publications = [
-                {
-                    title: 'StyleMate: A Conversational AI and AR-Based Personalized Shopping Experience',
-                    description: 'Research integrating AI, NLP, Deep Learning, Emotion Recognition, and Augmented Reality to design a next-generation fashion e-commerce platform with AI stylist chatbot, AR try-on, emotion-aware recommendations, and sustainability-focused filters.',
-                    venue: 'International Journal of Creative Research Thoughts (IJCRT)',
-                    details: 'Volume 13, Issue 11, November 2025',
-                    icon: '📄'
-                },
-                {
-                    title: 'The Next Generation of Learning: AI Mentorship for a Transformative Educational Experience',
-                    description: 'Research on AI-driven mentorship systems for transforming educational experiences',
-                    venue: 'International Journal of Advanced Research in Computer and Communication Engineering (IJARCCE)',
-                    details: '',
-                    icon: '📄'
-                }
-            ];
-
-            // Added LLM certification as the first item for prominence
-            const certifications = [
-                {
-                    title: 'NPTEL Online Certification – Introduction to Large Language Models (LLMs)',
-                    organization: 'IIT Madras (Funded by MoE, Govt. of India)',
-                    duration: '12 week course (Jul-Oct 2025) | Score: 58%',
-                    year: '2025'
-                },
-                {
-                    title: 'NPTEL Online Certification – Data Science for Engineers',
-                    organization: 'IIT Madras',
-                    duration: '8 weeks',
-                    year: '2025'
-                },
-                {
-                    title: 'Python Coder Badge',
-                    organization: 'Kaggle',
-                    duration: '',
-                    year: '2025'
-                },
-                {
-                    title: 'AI Chatbots Development Exploring Generative AI with ChatGPT',
-                    organization: 'Udemy',
-                    duration: '',
-                    year: '2025'
-                },
-                {
-                    title: 'Getting Started with Java Using Alice',
-                    organization: 'Oracle Academy',
-                    duration: '',
-                    year: '2025'
-                },
-                {
-                    title: 'IBM Certification: AI Fundamentals',
-                    organization: 'IBM',
-                    duration: '',
-                    year: '2025'
-                },
-                {
-                    title: 'IBM Certification: Career Management Essentials',
-                    organization: 'IBM',
-                    duration: '',
-                    year: '2025'
-                },
-                {
-                    title: 'IBM Certification: Cybersecurity Fundamentals',
-                    organization: 'IBM',
-                    duration: '',
-                    year: '2025'
-                },
-                {
-                    title: 'NPTEL Online Certification – Cloud Computing Course',
-                    organization: 'IIT Madras',
-                    duration: '12 weeks',
-                    year: '2024'
-                },
-                {
-                    title: 'Internship Training on Full Stack Web Development',
-                    organization: 'Katare Informatics',
-                    duration: '',
-                    year: '2023'
-                }
-            ];
-
-            const awards = [
-                {
-                    title: 'Runner Up - Technical Project Competition',
-                    description: 'Achieved second place in technical project competition',
-                    venue: 'Kalpak 2k23',
-                    icon: '🏆'
-                },
-                {
-                    title: 'State and National Level Competitions',
-                    description: 'Participated in numerous State and National Level Project Idea Competitions',
-                    venue: 'Various Events',
-                    icon: '🎯'
-                }
-            ];
-
-            const softSkills = [
-                'Leadership',
-                'Patient Listening',
-                'Management Skills',
-                'Teamwork',
-                'Critical Thinking',
-                'Communication',
-                'Adaptability'
-            ];
-
-            return (
-                <div className="content">
-                    <div className="page-container">
-                        <div className="page-header">
-                            <h1>Achievements & Certifications</h1>
-                            <p className="page-subtitle">
-                                A showcase of professional certifications, awards, and accomplishments
-                            </p>
-                        </div>
-
-                        <div className="section">
-                            <h2 className="section-title">
-                                <span className="title-icon">📚</span>
-                                Research Publications
-                            </h2>
-                            <div className="awards-grid">
-                                {publications.map((pub, index) => (
-                                    <div key={index} className="award-card">
-                                        <div className="award-icon">{pub.icon}</div>
-                                        <h3>{pub.title}</h3>
-                                        <p className="award-description">{pub.description}</p>
-                                        <p className="award-venue">
-                                            {pub.venue} {pub.details && `(${pub.details})`}
-                                        </p>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-
-                        <div className="section">
-                            <h2 className="section-title">
-                                <span className="title-icon">🏅</span>
-                                Awards & Recognition
-                            </h2>
-                            <div className="awards-grid">
-                                {awards.map((award, index) => (
-                                    <div key={index} className="award-card">
-                                        <div className="award-icon">{award.icon}</div>
-                                        <h3>{award.title}</h3>
-                                        <p className="award-description">{award.description}</p>
-                                        <p className="award-venue">{award.venue}</p>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-
-                        <div className="section">
-                            <h2 className="section-title">
-                                <span className="title-icon">📜</span>
-                                Certifications
-                            </h2>
-                            <div className="certifications-timeline">
-                                {certifications.map((cert, index) => (
-                                    <div key={index} className="cert-item">
-                                        <div className="cert-year">{cert.year}</div>
-                                        <div className="cert-content">
-                                            <h3>{cert.title}</h3>
-                                            <p className="cert-org">Issued by: {cert.organization}</p>
-                                            {cert.duration && <p className="cert-duration">{cert.duration}</p>}
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-
-                        <div className="section">
-                            <h2 className="section-title">
-                                <span className="title-icon">🤝</span>
-                                Soft Skills & Leadership
-                            </h2>
-                            
-                            <div className="skills-grid">
-                                {softSkills.map((skill, index) => (
-                                    <div key={index} className="skill-badge">{skill}</div>
-                                ))}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            );
-        }
-
-        // Main App Component
-        function App() {
-            const [currentPage, setCurrentPage] = useState('home');
-
-            const renderPage = () => {
-                switch (currentPage) {
-                    case 'home':
-                        return <HomePage />;
-                    case 'projects':
-                        return <ProjectsPage />;
-                    case 'achievements':
-                        return <AchievementsPage />;
-                    default:
-                        return <HomePage />;
-                }
-            };
-
-            return (
-                <React.Fragment>
-                    <Navbar currentPage={currentPage} setCurrentPage={setCurrentPage} />
-                    {renderPage()}
-                </React.Fragment>
-            );
-        }
-
-        // Render the App
-        ReactDOM.createRoot(document.getElementById('root')).render(<App />);
     </script>
 </body>
 </html>
