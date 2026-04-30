@@ -16,7 +16,7 @@
     --border: #e5e1f0;
     --card: #ffffff;
   }
-
+ 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
   body {
@@ -27,7 +27,7 @@
     line-height: 1.6;
     overflow-x: hidden;
   }
-
+ 
   /* NAV */
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
@@ -47,10 +47,10 @@
     font-size: 0.82rem; letter-spacing: 0.04em; transition: color 0.2s;
   }
   .nav-links a:hover { color: var(--purple); }
-
+ 
   /* LAYOUT */
   .page { max-width: 860px; margin: 0 auto; padding: 0 6%; }
-
+ 
   /* HERO */
   .hero {
     padding-top: 120px; padding-bottom: 70px;
@@ -59,7 +59,7 @@
     border-bottom: 1px solid var(--border);
   }
   .hero-left { flex: 1; min-width: 280px; }
-
+ 
   .hero-badge {
     display: inline-flex; align-items: center; gap: 0.45rem;
     background: var(--light); border: 1px solid var(--border);
@@ -72,7 +72,7 @@
     background: var(--purple); animation: blink 2s infinite;
   }
   @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.25} }
-
+ 
   .hero h1 {
     font-family: 'DM Serif Display', serif;
     font-size: clamp(2rem, 4vw, 2.8rem);
@@ -85,9 +85,9 @@
     animation: up 0.8s 0.1s ease both;
   }
   .hero-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; animation: up 0.8s 0.2s ease both; }
-
+ 
   @keyframes up { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:none} }
-
+ 
   .btn {
     display: inline-flex; align-items: center; gap: 0.35rem;
     padding: 0.5rem 1.1rem; border-radius: 8px;
@@ -98,7 +98,7 @@
   .btn-primary:hover { background: #6d28d9; }
   .btn-outline { background: transparent; color: var(--ink); border-color: var(--border); }
   .btn-outline:hover { border-color: var(--purple); color: var(--purple); }
-
+ 
   .hero-avatar {
     width: 160px; height: 200px; border-radius: 16px;
     box-shadow: 0 0 0 6px var(--light), 0 0 0 7px var(--border);
@@ -108,7 +108,7 @@
     width: 100%; height: 100%; object-fit: cover; object-position: center center;
     display: block;
   }
-
+ 
   /* STATS */
   .stats-bar {
     display: grid; grid-template-columns: repeat(4,1fr);
@@ -124,7 +124,7 @@
     margin-bottom: 0.25rem;
   }
   .stat-l { font-size: 0.7rem; color: var(--muted); line-height: 1.4; }
-
+ 
   /* SECTIONS */
   section { padding: 3.5rem 0; border-bottom: 1px solid var(--border); }
   section:last-of-type { border-bottom: none; }
@@ -136,7 +136,7 @@
     font-family: 'DM Serif Display', serif;
     font-size: 1.55rem; color: var(--ink); margin-bottom: 1.8rem;
   }
-
+ 
   /* EXPERIENCE */
   .exp-top {
     display: flex; justify-content: space-between; align-items: flex-start;
@@ -160,7 +160,7 @@
     content: ''; position: absolute; left: 0; top: 0.7rem;
     width: 5px; height: 5px; border-radius: 50%; background: var(--purple);
   }
-
+ 
   /* PROJECTS */
   .proj-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
   @media(max-width:560px){ .proj-grid { grid-template-columns: 1fr; } }
@@ -185,7 +185,7 @@
     padding: 0.18rem 0.55rem; border-radius: 100px; border: 1px solid var(--border);
   }
   .proj-desc { font-size: 0.8rem; color: #4b5563; line-height: 1.6; }
-
+ 
   /* SKILLS */
   .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
   @media(max-width:560px){ .skills-grid { grid-template-columns: 1fr; } }
@@ -201,7 +201,7 @@
   }
   .pill:hover { border-color: var(--purple); color: var(--purple); background: var(--light); }
   .pill.dark { background: var(--ink); color: white; border-color: var(--ink); }
-
+ 
   /* PAPER CARDS */
   .paper-card {
     background: var(--card); border: 1px solid var(--border);
@@ -242,8 +242,13 @@
     background: #ecfdf5; border: 1px solid #a7f3d0;
     padding: 0.2rem 0.65rem; border-radius: 100px;
   }
-
-
+  .paper-link {
+    font-size: 0.78rem; font-weight: 600; color: var(--purple);
+    text-decoration: none; transition: color 0.2s;
+  }
+  .paper-link:hover { color: var(--violet); text-decoration: underline; }
+ 
+ 
   .edu-row {
     display: flex; gap: 1.4rem; align-items: flex-start;
     padding: 1.1rem 0; border-bottom: 1px solid var(--border);
@@ -262,7 +267,7 @@
     background: var(--light); border: 1px solid var(--border);
     padding: 0.14rem 0.55rem; border-radius: 100px;
   }
-
+ 
   /* CERTS */
   .cert-list { display: grid; gap: 0.5rem; }
   .cert-row {
@@ -274,7 +279,7 @@
   .cert-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--purple); flex-shrink: 0; }
   .cert-name { font-size: 0.84rem; color: var(--ink); font-weight: 500; flex: 1; }
   .cert-org { font-size: 0.72rem; color: var(--muted); white-space: nowrap; }
-
+ 
   /* ACHIEVEMENTS */
   .ach-list { display: grid; gap: 0.8rem; }
   .ach-card {
@@ -291,7 +296,7 @@
   }
   .ach-title { font-size: 0.86rem; font-weight: 600; color: var(--ink); margin-bottom: 0.18rem; line-height: 1.4; }
   .ach-meta { font-size: 0.72rem; color: var(--purple); }
-
+ 
   /* CONTACT STRIP */
   .contact-strip {
     background: var(--ink); border-radius: 14px;
@@ -311,7 +316,7 @@
     border: 1px solid rgba(255,255,255,0.15);
   }
   .btn-ghost:hover { background: rgba(255,255,255,0.14); color: white; }
-
+ 
   footer {
     text-align: center; padding: 1.2rem 0 2.5rem;
     font-size: 0.73rem; color: var(--muted);
@@ -319,7 +324,7 @@
 </style>
 </head>
 <body>
-
+ 
 <nav>
   <a class="nav-name" href="#">Natasha Bogam</a>
   <ul class="nav-links">
@@ -330,9 +335,9 @@
     <li><a href="#contact">Contact</a></li>
   </ul>
 </nav>
-
+ 
 <div class="page">
-
+ 
   <!-- HERO -->
   <div class="hero">
     <div class="hero-left">
@@ -348,7 +353,7 @@
     </div>
     <div class="hero-avatar"><img src="MyPhoto.jpg" alt="Natasha Bogam"></div>
   </div>
-
+ 
   <!-- STATS -->
   <div class="stats-bar">
     <div class="stat"><div class="stat-n">2</div><div class="stat-l">Published research papers</div></div>
@@ -356,12 +361,12 @@
     <div class="stat"><div class="stat-n">4</div><div class="stat-l">Academic projects built</div></div>
     <div class="stat"><div class="stat-n">🏆</div><div class="stat-l">Runner up, Kalpak 2k23</div></div>
   </div>
-
+ 
   <!-- RESEARCH PAPERS — hero section -->
   <section id="research">
     <div class="sec-label">Research</div>
     <div class="sec-title">Published Papers</div>
-
+ 
     <div class="paper-card">
       <div class="paper-header">
         <div class="paper-badge">Journal Article</div>
@@ -377,9 +382,10 @@
           <span class="tag">Mentorship Systems</span>
         </div>
         <span class="paper-pub-badge">Published</span>
+        <a href="https://ijarsct.co.in/Paper19969.pdf" target="_blank" class="paper-link">Read Paper →</a>
       </div>
     </div>
-
+ 
     <div class="paper-card">
       <div class="paper-header">
         <div class="paper-badge">Journal Article</div>
@@ -396,10 +402,11 @@
           <span class="tag">E-Commerce</span>
         </div>
         <span class="paper-pub-badge">Published</span>
+        <a href="https://ijcrt.org/papers/IJCRT2511858.pdf" target="_blank" class="paper-link">Read Paper →</a>
       </div>
     </div>
   </section>
-
+ 
   <!-- PROJECTS -->
   <section id="projects">
     <div class="sec-label">Projects</div>
@@ -431,7 +438,7 @@
       </div>
     </div>
   </section>
-
+ 
   <!-- EDUCATION -->
   <section id="education">
     <div class="sec-label">Education</div>
@@ -441,7 +448,7 @@
       <div>
         <div class="edu-deg">B.Tech — Computer Science & Engineering (AI & Data Science)</div>
         <div class="edu-inst">Shree Siddheshwar Women's College of Engineering, Solapur</div>
-        <span class="edu-badge">7th Sem : 8.48 sgpa</span>
+        <span class="edu-badge">SGPA 8.48 · 7th Sem</span>
       </div>
     </div>
     <div class="edu-row">
@@ -453,7 +460,7 @@
       </div>
     </div>
   </section>
-
+ 
   <!-- CERTIFICATIONS -->
   <section id="certifications">
     <div class="sec-label">Certifications</div>
@@ -469,7 +476,7 @@
       <div class="cert-row"><div class="cert-dot"></div><div class="cert-name">Full Stack Web Development Internship Training</div><div class="cert-org">Katare Informatics · 2023</div></div>
     </div>
   </section>
-
+ 
   <!-- SKILLS -->
   <section id="skills">
     <div class="sec-label">Skills</div>
@@ -517,7 +524,7 @@
       </div>
     </div>
   </section>
-
+ 
   <!-- EXPERIENCE — compact -->
   <section id="experience">
     <div class="sec-label">Experience</div>
@@ -535,7 +542,7 @@
       <li>Built HR dashboards and MIS reports; executed data migration with >99% data accuracy.</li>
     </ul>
   </section>
-
+ 
   <!-- CONTACT -->
   <div id="contact" class="contact-strip">
     <div>
@@ -548,9 +555,9 @@
       <a href="https://github.com/nataanu" target="_blank" class="btn btn-ghost">GitHub</a>
     </div>
   </div>
-
+ 
   <footer>© 2026 Natasha Balraj Bogam · Solapur, Maharashtra</footer>
-
+ 
 </div>
 </body>
 </html>
